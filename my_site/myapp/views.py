@@ -93,3 +93,9 @@ def booksAPI(request):
     # PUT 방식의 처리 - 변경을 요청하는 경우
     elif request.method == 'PUT':
         pass
+
+@api_view(['GET'])
+def oneBookAPI(request, bookid):
+    book = get_object_or_404(Book, bookId = bookid)
+    serializer = BookSerializer(book)
+    return Response(serializer.data)
