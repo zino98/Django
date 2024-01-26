@@ -1,0 +1,30 @@
+{% load static %}  <!--static 파일을 쓰기 위함--> <!-- image, video, css, html: static file -->
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 보기</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />  <!--경로 설정-->
+</head>
+<body>
+    <div align = "center" class = "body">  <!--'class': CSS를 적용하기 위함, 'id': Javascript -->
+        <h2>상품 목록 화면</h2>
+        <table border = "1">
+            <tr class="header">
+                <th align="center" width = "80">상품 ID</th>
+                <th align="center" width = "320">상품 이름</th>
+                <th align="center" width = "100">가격</th>
+            </tr>
+            {% for item in message %}   <!-- 동적으로 사용하기 위한 템플릿 엔진 -->
+                <tr class="record">
+                    <td align="center">{{item.itemId}}</td>    <!-- 테이블에서 'align': 내용 정렬 (오른쪽, 중앙, 왼쪽) -->
+                    <td align="left"><a href="./detail/{{item.itemId}}">{{item.itemName}}</a></td>
+                    <td align="right">{{item.price}}</td>
+
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>         <!--서브 사이드 렌더링 방식: Django에 HTML 파일이 같이 있다, Python이 출력했다 --> 
