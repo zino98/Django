@@ -78,7 +78,6 @@ def booksAPI(request):
     if request.method == 'GET':
         books = Book.objects.all()
         serializer = BookSerializer(books, many = True)  # 브라우저에 맞는 형태로 변환
-
         return Response(serializer.data)
     # POST 방식의 처리 - 삽입을 요청하는 경우
     elif request.method == 'POST':

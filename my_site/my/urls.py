@@ -13,7 +13,7 @@ urlpatterns = [
     path("article/<int:num>", views.detail),   # 127.0.0.1/article/num URL 실행
     path("search/", views.search),  # 127.0.0.1/search?query="()" URL 실행
     path("crud/", views.work),
-    
+
     path("crud/detail/<int:itemid>", views.detail_page),
     path("get/<int:itemid>", views.get),
 
