@@ -1,11 +1,15 @@
 from django.shortcuts import render
+
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from rest_framework import status
+from rest_framework.generics import get_object_or_404
+from .models import Book
+from .serializers import BookSerializer
 
 from django.http import HttpResponse
 from django.http import JsonResponse
-from myapp.models import Item
+from .models import Item
 # Create your views here.
 
 # 이 함수를 실행하면 ()안의 내용을 클라이언트에게 전송
@@ -67,3 +71,26 @@ def detail_page(request, itemid):
 @api_view(['GET'])
 def api(request):
     return Response("Hello REST API")
+
+@api_view(['GET', 'POST'])
+def booksAPI(request):
+    # GET 방식의 처리 - 전체 조회를 요청하는 경우
+    if request.method == 'GET':
+        books = Book.objects.all()
+        serializer = BookSerializer(books, many = True)  # 브라우저에 맞는 형태로 변환
+
+        return Response(serializer.data)
+    # POST 방식의 처리 - 삽입을 요청하는 경우
+    elif request.method == 'POST':
+        # 클라이언트에서 전송된 데이터를 가지고 Model 인스턴스 생성
+        serializer = BookSerializer(data = request.data)
+        # 유효성 검사
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        # 실패 시, 오류 출력
+        return Response(serializer.errors)
+    
+    # PUT 방식의 처리 - 변경을 요청하는 경우
+    elif request.method == 'PUT':
+        pass
