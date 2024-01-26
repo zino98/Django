@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -54,8 +57,13 @@ def get(request, itemid):
     item = Item.objects.get(itemId = itemid)  # get() return -> Instance 
     return JsonResponse(itemToDictionary(item))
 
-
 # 상세 보기 요청을 처리하는 함수
 def detail_page(request, itemid):
     item = Item.objects.get(itemId = itemid)
     return render(request, 'detail.html', {'data': item})
+
+
+# GET 요청이 오면 함수를 호출
+@api_view(['GET'])
+def api(request):
+    return Response("Hello REST API")
