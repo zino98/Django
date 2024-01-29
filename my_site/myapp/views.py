@@ -99,3 +99,6 @@ def oneBookAPI(request, bookid):
     book = get_object_or_404(Book, bookId = bookid)
     serializer = BookSerializer(book)
     return Response(serializer.data)
+
+def ajax(request):
+    return render(request, "ajax.html")

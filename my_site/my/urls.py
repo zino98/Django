@@ -18,4 +18,5 @@ urlpatterns = [
     path("get/<int:itemid>", views.get),
 
     path("example/", include("myapp.urls")), # example로 시작하는 url 요청이 오면 myapp 애플리케이션의 urls.py 파일에 처리를 위임
+    path("ajax/", views.ajax), 
 ] 
